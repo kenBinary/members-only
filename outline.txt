@@ -1,0 +1,12 @@
+MODELS
+-users
+* setup admin who can delete messages and see everything
+-messages
+*setup database
+
+
+SETUP SIGN-UP FORM
+-sanitize and validate
+-secure passwords with bcrypt
+-use custom validator for confirm password
+https://express-validator.github.io/docs/guides/customizing/
