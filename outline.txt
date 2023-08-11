@@ -4,6 +4,20 @@ MODELS
 -messages
 *setup database
 
+CONTROLLERS
+-retrieve messages with only title and message
+-retrieve message with full information
+-retrieve message for admin controll
+-create new message
+-delete message
+-login
+-sign up new member
+
+ROUTES
+
+
+
+
 
 SETUP SIGN-UP FORM
 -sanitize and validate
