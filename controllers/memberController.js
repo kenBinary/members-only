@@ -1,17 +1,8 @@
-// -login
-// -sign up new member
-// -create new message
-// -delete message
-
 // User model
 const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 // validation and sanitation
 const { check, validationResult } = require("express-validator");
-// authnetication 
-const passport = require("passport");
-const passportLocal = require("passport-local");
-const session = require("express-session");
 // password encrypting
 const bcrypt = require("bcrypt");
 // dotenv
@@ -27,7 +18,7 @@ exports.loginValidation = [
     check("username").isEmail().normalizeEmail().trim().escape().withMessage("Invalid Message"),
     check("password").trim().escape().withMessage("Invalid Password")
 ];
-
+// -login
 exports.login = asyncHandler(async (loginName, password, done) => {
     // login with authentication using passport
     const user = await User.findOne({ email: loginName });
@@ -40,6 +31,7 @@ exports.login = asyncHandler(async (loginName, password, done) => {
     }
     return done(null, user);
 });
+// -sign up new member
 exports.signUp = asyncHandler(async (req, res, next) => {
     // sign-up with sanitation and validation whose password is stored with hash
     const errors = validationResult(req);
