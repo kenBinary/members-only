@@ -28,9 +28,17 @@ exports.loginValidation = [
     check("password").trim().escape().withMessage("Invalid Password")
 ];
 
-exports.login = asyncHandler(async (req, res, next) => {
+exports.login = asyncHandler(async (loginName, password, done) => {
     // login with authentication using passport
-    const errors = validationResult(req);
+    const user = await User.findOne({ email: loginName });
+    const match = bcrypt.compare(password, user.hash);
+    if (!user) {
+        return done(null, false, { message: "Incorrect Username" });
+    }
+    else if (!match) {
+        return done(null, false, { message: "Password do not match" });
+    }
+    return done(null, user);
 });
 exports.signUp = asyncHandler(async (req, res, next) => {
     // sign-up with sanitation and validation whose password is stored with hash
