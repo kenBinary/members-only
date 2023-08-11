@@ -26,9 +26,23 @@ exports.getFullMessage(asyncHandler(async (req, res, next) => {
 }));
 // -create new message
 exports.createMessage(asyncHandler(async (req, res, next) => {
-
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        throw new Error("create message validation and sanitation errors");
+    }
+    const newMessage = {
+        author: req.user._id,
+        datePosted: new Date(),
+        title: req.body.newtitle,
+        message: req.body.newMessage
+    }
+    const messageDocument = new Message(newMessage);
+    await messageDocument.save();
+    res.redirect('back')
 }));
 // -delete message
 exports.deleteMessage(asyncHandler(async (req, res, next) => {
-
+    const messageId = req.body.messageId;
+    await Message.deleteOne({ _id: messageId });
+    res.redirect('back');
 }));
